@@ -25,7 +25,7 @@ const steps_1 = require("cypress-cucumber-preprocessor/steps");
         .should('contain', 'firstName is a required field')
         .should('contain', 'lastName is a required field')
         .should('contain', 'email is a required field')
-        .should('contain', 'date must be a `date` type, but the final value was: `Invalid Date` (cast from the value `""`).');
+        .should('contain', 'date is a required field');
 });
 (0, steps_1.Given)('I go to home page', () => {
     cy.visit(`${Cypress.config().baseUrl}`);

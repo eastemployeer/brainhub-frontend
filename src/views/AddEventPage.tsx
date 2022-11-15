@@ -1,18 +1,11 @@
 import React, { ChangeEvent, useCallback, useState } from "react";
-import {
-  Button,
-  Dimmer,
-  Form,
-  Header,
-  Loader,
-  Segment,
-} from "semantic-ui-react";
+import { Button, Dimmer, Form, Header, Loader, Segment } from "semantic-ui-react";
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import useAsyncCallback from "../hooks/useAsyncCallback";
-import { createEvent } from "../services/api";
+import * as api from "../services/api";
 import { EventCreateRequest } from "../types/api";
 import FormField from "../components/FormField";
 import "./AddEventPage.scss";
@@ -26,7 +19,7 @@ const schema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   email: yup.string().email().required(),
-  date: yup.date().required(),
+  date: yup.date().required().nullable().transform((curr, orig) => orig === '' ? null : curr),
 });
 
 export default function AddEventPage() {
@@ -48,7 +41,7 @@ export default function AddEventPage() {
 
   const [onSubmit, loading] = useAsyncCallback(async () => {
     try {
-      await createEvent(data);
+      await api.createEvent(data);
       setRequestState(RequestState.COMPLETE);
       toast.success("Event created successfully");
     } catch(e: any) {
@@ -80,10 +73,10 @@ export default function AddEventPage() {
             Add an event
           </Header>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormField name="firstName" label="First name" onChange={onChange} errors={errors} register={register} />
-            <FormField name="lastName" label="Last name" onChange={onChange} errors={errors} register={register} />
-            <FormField name="email" label="Email" onChange={onChange} errors={errors} register={register} />
-            <FormField name="date" label="Event date" onChange={onChange} errors={errors} register={register} type="date" />
+            <FormField name="firstName" label="First name" onChange={onChange} errors={errors} register={register} required />
+            <FormField name="lastName" label="Last name" onChange={onChange} errors={errors} register={register} required />
+            <FormField name="email" label="Email" onChange={onChange} errors={errors} register={register} required />
+            <FormField name="date" label="Event date" onChange={onChange} errors={errors} register={register} type="date" required />
             <Button
               fluid
               type="submit"

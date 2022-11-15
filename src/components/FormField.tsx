@@ -11,9 +11,9 @@ interface FormFieldProps extends BaseFormFieldProps  {
   label: string;
 }
 
-export default function FormField({ errors, register, onChange, name, label, type, rest }: FormFieldProps) {
+export default function FormField({ errors, register, onChange, name, label, type, ...rest }: FormFieldProps) {
   return (
-    <Form.Field error={!!errors[name]?.message} {...rest}>
+    <Form.Field error={!!errors[name]?.message} {...rest} >
       <label>{label}</label>
       <input {...register(name)} onChange={onChange} type={type} />
       <ErrorMessage as="label" errors={errors} name={name} />

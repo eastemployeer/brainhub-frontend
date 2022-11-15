@@ -29,7 +29,7 @@ Then('I see proper validation error messages', () => {
   .should('contain', 'firstName is a required field')
   .should('contain', 'lastName is a required field')
   .should('contain', 'email is a required field')
-  .should('contain', 'date must be a `date` type, but the final value was: `Invalid Date` (cast from the value `""`).');
+  .should('contain', 'date is a required field');
 });
 
 Given('I go to home page', () => {
