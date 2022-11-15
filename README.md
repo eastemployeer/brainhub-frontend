@@ -15,4 +15,5 @@
 
 ## E2E tests
 
-- `npm run test:e2e`
+- Start application with `npm run start`
+- Open another terminal tab and run `npm run test:e2e`
