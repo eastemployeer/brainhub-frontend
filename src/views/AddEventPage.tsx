@@ -30,6 +30,7 @@ export default function AddEventPage() {
     email: "",
     date: "",
   });
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
@@ -44,14 +45,12 @@ export default function AddEventPage() {
       await api.createEvent(data);
       setRequestState(RequestState.COMPLETE);
       toast.success("Event created successfully");
-    } catch(e: any) {
+    } catch(e) {
       setRequestState(RequestState.FAILED);
-      toast.error(e.message);
     }
   }, [data]);
 
   let requestSegment;
-  
   if(requestState) {
     requestSegment = (
       <Segment>

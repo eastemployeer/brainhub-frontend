@@ -16,3 +16,8 @@ export interface EventCreateRequest {
   email: string;
   date: string;
 }
+
+export interface ErrorResponse {
+  status: string;
+  message: string;
+}

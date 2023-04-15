@@ -1,11 +1,12 @@
-import axiosInstance from "../lib/axios";
+import requestJSON from "../helpers/requestJSON";
 import { EventCreateRequest, EventCreateResponse } from "../types/api";
 
 export const createEvent = async (data: EventCreateRequest) => {
-  const response = await axiosInstance<EventCreateResponse>({
+  const response = await requestJSON<EventCreateResponse, EventCreateRequest>({
     url: "api/v1/events",
     method: "POST",
     data,
   });
-  return response.data.data;
+
+  return response.data;
 };
